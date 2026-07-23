@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: url("assets\\the-shimmering-voyage.jpg") left no-repeat;
+  background-size: cover;
+}
+.sign-up-page {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+
+.side-bar {
+  background: url("assets\\the-shimmering-voyage.jpg") left no-repeat;
+  background-size: cover;
+  background-position: left center;
+  width: 50%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.side-bar div {
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.48);
+  text-align: center;
+  width: 100%;
+  padding: 30px;
+  margin-bottom: 10vh;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+#description {
+  font-weight: 600;
+  padding: 50px 30px;
+  font-size: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.509);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 250px 250px;
+  box-shadow: 1px 2px 2px rgb(0, 0, 0);
+  background-color: white;
+  padding: 3rem 0;
+}
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 30px;
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: rgba(18, 20, 69);
+}
+
+.form-grid input {
+  border: 1px solid rgb(199, 199, 199);
+  border-radius: 4px;
+  padding: 3px;
+  font-size: 0.8rem;
+  outline: none;
+  transition: ease 0.1s;
+}
+
+.form-grid input:focus {
+  border-color: rgba(23, 52, 128);
+}
+.form-grid input:invalid {
+  border-color: red;
+}
+
+#createAcc {
+  padding: 50px 30px;
+  background-color: rgba(255, 255, 255, 0.505);
+  height: 100%;
+}
+
+.sub-btn {
+  background-color: rgba(71, 111, 193);
+  border: none;
+  border-radius: 7px;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  box-shadow: 1px 1px 2px grey;
+  transition: ease 0.1s;
+}
+
+.sub-btn:hover {
+  background-color: rgb(56, 87, 188);
+}
+.sub-btn:active {
+  background-color: rgba(71, 111, 193);
+}
+
+.login {
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding-top: 25px;
+}
+
+#log-in {
+  color: rgba(23, 52, 128);
+  text-decoration: none;
+}

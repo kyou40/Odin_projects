@@ -1,0 +1,60 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign-up Form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="sign-up-page">
+      <div class="side-bar">
+        <div>Genshin Impact</div>
+      </div>
+      <div class="form">
+        <div clas="form-row" id="description">
+          <div>Sign-up to listen to Genshin Music. 'The Shimmering Voyage'</div>
+        </div>
+        <form class="card">
+          <div class="form-grid" id="f-fname">
+            <label for="fname">FIRST NAME</label>
+            <input id="fname" name="first_name" required />
+          </div>
+          <div class="form-grid" id="f-fname">
+            <label for="lname">LAST NAME</label>
+            <input id="lname" name="last_name" required />
+          </div>
+          <div class="form-grid" id="f-email">
+            <label for="email">EMAIL</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="xxx@gmail.com"
+              required
+            />
+          </div>
+          <div class="form-grid" id="phone-number">
+            <label for="phone-no">PHONE NUMBER</label>
+            <input id="phone-no" name="phone_no" value="+60" required />
+          </div>
+          <div class="form-grid" id="f-password">
+            <label for="password">PASSWORD</label>
+            <input id="password" name="password" required />
+          </div>
+          <div class="form-grid" id="f-Cpassword">
+            <label for="Cpassword">CONFIRM PASSWORD</label>
+            <input id="Cpassword" name="Cpassword" required />
+          </div>
+        </form>
+        <div class="form-row" id="createAcc">
+          <button type="submit" class="sub-btn" id="sub-btn">
+            Create Account
+          </button>
+          <div class="login">
+            Already have an account? <a href="#" id="log-in">Log in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
