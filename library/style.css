@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Times New Roman", Times, serif;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px 20px;
+}
+
+.library {
+  padding: 20px;
+}
+#library-title {
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 20px 10px;
+}
+.display-book {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+  gap: 20px;
+}
+.card {
+  background-color: rgb(255, 244, 226);
+  border-radius: 15px;
+  padding: 30px 20px;
+  justify-items: center;
+  box-shadow: 1px 1px 3px rgb(69, 68, 68, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+.read-btn {
+  max-width: fit-content;
+  margin-top: 1vh;
+  font-weight: bold;
+}
+.remove-btn {
+  max-width: fit-content;
+  padding: 5px 20px;
+  margin-top: 1vh;
+}
+#new-book-btn {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-top: 3vh;
+}
+
+dialog {
+  width: 50%;
+  margin: auto;
+  padding: 2rem;
+  border: none;
+  background-color: rgb(255, 243, 223);
+  border-radius: 15px;
+  box-shadow: 1px 1px 3px rgb(69, 68, 68, 0.5);
+}
+.form-row {
+  padding: 5px;
+}
+input {
+  border: 1px solid grey;
+  border-radius: 3px;
+}
+input:focus {
+  outline: none;
+}
