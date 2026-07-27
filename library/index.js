@@ -1,29 +1,7 @@
-const myLibrary = [
-  {
-    title: "title1",
-    author: "author1",
-    pages: 123,
-    read: "Read",
-    bookId: "sdfsdfsdf",
-  },
-  {
-    title: "title1",
-    author: "author1",
-    pages: 123,
-    read: "Unread",
-    bookId: "dssdffgrgw",
-  },
-  {
-    title: "title1",
-    author: "author1",
-    pages: 123,
-    read: "Read",
-    bookId: "awrgagegweg",
-  },
-];
-const displayBookContainer = document.getElementById("display-book");
+const myLibrary = [];
+const libraryContainer = document.querySelector(".library-container");
 const nbBtn = document.getElementById("new-book-btn");
-const nbDialog = document.getElementById("new-book");
+const nbDialog = document.getElementById("new-book-dialog");
 const nbForm = nbDialog.querySelector("form");
 const confirmBtn = document.getElementById("confirm-btn");
 const cancelBtn = document.getElementById("cancel-btn");
@@ -33,57 +11,78 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.bookId = crypto.randomUUID();
+  this.id = crypto.randomUUID();
 }
 
+Book.prototype.toggleRead = function () {
+  this.read = !this.read;
+};
+
 function addBookToLibrary(title, author, pages, read) {
-  const book = new Book(title, author, pages, read);
-  myLibrary.push(book);
+  const newBook = new Book(title, author, pages, read);
+  myLibrary.push(newBook);
   displayBook();
 }
 
+function createBookCard(book) {
+  const card = document.createElement("div");
+  card.classList.add("card", book.read ? "read" : "unread");
+  card.dataset.id = `${book.id}`;
+
+  const title = document.createElement("h3");
+  title.classList.add("book-title");
+  title.textContent = book.title;
+
+  const author = document.createElement("p");
+  author.classList.add("book-author");
+  author.textContent = `by ${book.author}`;
+
+  const pages = document.createElement("p");
+  pages.classList.add("book-pages");
+  pages.textContent = `${book.pages} pages`;
+
+  const status = document.createElement("span");
+  status.classList.add("book-status", book.read ? "read" : "unread");
+  status.textContent = book.read ? "Read" : "Not read yet";
+
+  const actions = document.createElement("div");
+  actions.classList.add("book-actions");
+
+  const readBtn = document.createElement("button");
+  readBtn.classList.add("read-btn");
+  readBtn.textContent = book.read ? "Unread" : "Read";
+  readBtn.addEventListener("click", () => {
+    book.toggleRead();
+    displayBook();
+  });
+
+  const removeBtn = document.createElement("button");
+  removeBtn.classList.add("remove-btn");
+  removeBtn.textContent = "Remove";
+  removeBtn.addEventListener("click", () => {
+    removeBook(book.id);
+  });
+
+  actions.append(readBtn, removeBtn);
+  card.append(title, author, pages, status, actions);
+  return card;
+}
+
 function displayBook() {
-  displayBookContainer.innerHTML = "";
-  myLibrary.forEach((b) => {
-    const card = document.createElement("div");
-    card.classList.add("card");
-    card.dataset.id = `${b.bookId}`;
-    const ul = document.createElement("ul");
+  libraryContainer.innerHTML = "";
+  myLibrary.forEach((book) => {
+    const card = createBookCard(book);
 
-    Object.entries(b).forEach(([key, value]) => {
-      if (key === "bookId") {
-        return;
-      }
-      const li = document.createElement("li");
-      const formattedKey = key.charAt(0).toUpperCase() + key.slice(1);
-      li.innerHTML = `<strong>${formattedKey}</strong>: ${value}`;
-      ul.append(li);
-    });
-
-    const removeBtn = document.createElement("button");
-    removeBtn.textContent = "Remove";
-    removeBtn.classList.add("remove-btn");
-    removeBtn.addEventListener("click", () => {
-      removeBook(b.bookId);
-    });
-
-    const readBtn = document.createElement("button");
-    readBtn.classList.add("read-btn");
-    readBtn.textContent = b.read === "Read" ? "Unread" : "Read";
-    readBtn.addEventListener("click", () => {
-      hasRead(b);
-    });
-
-    card.append(ul);
-    card.appendChild(readBtn);
-    card.appendChild(removeBtn);
-
-    displayBookContainer.appendChild(card);
+    libraryContainer.appendChild(card);
   });
 }
 
-function hasRead(b) {
-  b.read = b.read === "Read" ? "Unread" : "Read";
+function removeBook(id) {
+  const index = myLibrary.findIndex((book) => book.id === id);
+  if (index !== -1) {
+    myLibrary.splice(index, 1);
+  }
+
   displayBook();
 }
 
@@ -91,32 +90,25 @@ nbBtn.addEventListener("click", () => {
   nbDialog.showModal();
 });
 
-nbForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const formData = new FormData(nbForm);
-  const bookData = Object.fromEntries(formData.entries());
-  const newBook = addBookToLibrary(
-    bookData.title,
-    bookData.author,
-    bookData.pages,
-    bookData.read || "Unread",
-  );
-
-  nbDialog.close();
-  nbForm.reset();
-});
-
 cancelBtn.addEventListener("click", () => {
   nbDialog.close();
   nbForm.reset();
 });
 
-function removeBook(bookId) {
-  const index = myLibrary.findIndex((book) => book.bookId === bookId);
-  if (index !== -1) {
-    myLibrary.splice(index, 1);
-  }
+nbForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const title = document.getElementById("title").value.trim();
+  const author = document.getElementById("author").value.trim();
+  const pages = document.getElementById("pages").value.trim();
+  const read = document.getElementById("read").checked;
 
-  displayBook();
-}
+  addBookToLibrary(title, author, pages, read);
+
+  nbDialog.close();
+  nbForm.reset();
+});
+
+addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
+addBookToLibrary("Dune", "Frank Herbert", 412, false);
+addBookToLibrary("Genshin Impact: Teyvat Chronicles", "miHoYo", 128, false);
 displayBook();
