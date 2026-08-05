@@ -6,21 +6,30 @@ const nbForm = nbDialog.querySelector("form");
 const confirmBtn = document.getElementById("confirm-btn");
 const cancelBtn = document.getElementById("cancel-btn");
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.id = crypto.randomUUID();
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.id = crypto.randomUUID();
+  }
+
+  toggleRead() {
+    this.read = !this.read;
+  }
 }
 
-Book.prototype.toggleRead = function () {
-  this.read = !this.read;
-};
-
-function addBookToLibrary(title, author, pages, read) {
-  const newBook = new Book(title, author, pages, read);
+function addBookToLibrary(newBook) {
   myLibrary.push(newBook);
+  displayBook();
+}
+
+function removeBook(id) {
+  const index = myLibrary.findIndex((book) => book.id === id);
+  if (index !== -1) {
+    myLibrary.splice(index, 1);
+  }
   displayBook();
 }
 
@@ -77,15 +86,13 @@ function displayBook() {
   });
 }
 
-function removeBook(id) {
-  const index = myLibrary.findIndex((book) => book.id === id);
-  if (index !== -1) {
-    myLibrary.splice(index, 1);
-  }
-
-  displayBook();
+function getBookFromInput() {
+  const title = document.getElementById("title").value.trim();
+  const author = document.getElementById("author").value.trim();
+  const pages = document.getElementById("pages").value.trim();
+  const read = document.getElementById("read").checked;
+  return new Book(title, author, pages, read);
 }
-
 nbBtn.addEventListener("click", () => {
   nbDialog.showModal();
 });
@@ -97,18 +104,8 @@ cancelBtn.addEventListener("click", () => {
 
 nbForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  const title = document.getElementById("title").value.trim();
-  const author = document.getElementById("author").value.trim();
-  const pages = document.getElementById("pages").value.trim();
-  const read = document.getElementById("read").checked;
-
-  addBookToLibrary(title, author, pages, read);
+  addBookToLibrary(getBookFromInput());
 
   nbDialog.close();
   nbForm.reset();
 });
-
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
-addBookToLibrary("Dune", "Frank Herbert", 412, false);
-addBookToLibrary("Genshin Impact: Teyvat Chronicles", "miHoYo", 128, false);
-displayBook();
